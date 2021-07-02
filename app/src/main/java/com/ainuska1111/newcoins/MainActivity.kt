@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.ainuska1111.newcoins.adapter.CoinAdapter
 import com.ainuska1111.newcoins.data.network.model.Status
 import com.ainuska1111.newcoins.databinding.ActivityMainBinding
+import com.ainuska1111.newcoins.ui.CoinFragment
+import com.ainuska1111.newcoins.util.Extras
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,9 +28,9 @@ class MainActivity : AppCompatActivity() {
 
         initObservers()
         initClickListeners()
-    }
 
-    private fun initObservers() {
+    }
+        private fun initObservers() {
         viewModel?.coinLiveData?.observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     binding.progress.isVisible = false
                     val data = it.data
                     if (data != null) {
-                        binding.recyclerView.adapter = CoinAdapter(data.coins)
+                        binding.recyclerView.adapter = CoinAdapter(data.coins, this, R.layout.fragment_item)
                     }
                 }
                 Status.ERROR -> {
@@ -52,13 +54,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun initClickListeners() {
-        /* val intent = Intent(context, Fragment::class.java)
-         binding.item_recycler.setOnClickListener {
-             intent .putExtra()
-             startActivity(intent )*/
-
+        private fun initClickListeners() {
+        val intent = Intent(context, CoinFragment::class.java)
+        binding.recyclerView.setOnClickListener {
+            intent.putExtra(Extras.HOME_ALL, Type.COINS.name)
+            startActivity(intent)
+        }
     }
 
-
 }
+

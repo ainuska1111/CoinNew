@@ -12,9 +12,8 @@ interface ApiService {
 
     @GET("v1/coins")
     fun getCoins(
-        @Query("currency") currency: String,
-        @Query("limit") limit: Int = 20,
-        @Query("skip") skip: Int = 0
+            @Query("limit") limit: Int = 20,
+            @Query("skip") skip: Int = 0
 
     ): io.reactivex.Observable<CoinResponse>
 

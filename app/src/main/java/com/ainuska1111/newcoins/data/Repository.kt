@@ -6,5 +6,5 @@ import javax.inject.Singleton
 
 @Singleton
 class Repository @Inject constructor ( var repo: ApiService) {
-    fun getCoin(currency: String) = repo.getCoins(currency)
+    fun getCoin(currency: String) = repo.getCoins()
 }

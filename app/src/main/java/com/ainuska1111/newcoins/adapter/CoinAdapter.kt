@@ -3,19 +3,22 @@ package com.ainuska1111.newcoins.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ainuska1111.newcoins.R
 import com.ainuska1111.newcoins.data.network.model.CoinItem
+import com.ainuska1111.newcoins.ui.CoinFragment
 
 
-class CoinAdapter(val data: List<CoinItem>,
+class CoinAdapter(val data: List<CoinItem>, coinFragment: CoinFragment, fragmentItem: Int,
 ): RecyclerView.Adapter<CoinAdapter.ViewHolder>(){
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.name_coin)
         val symbol: TextView = itemView.findViewById(R.id.symbol)
         val price: TextView = itemView.findViewById(R.id.price)
+        val details:  LinearLayout = itemView.findViewById(R.id.details)
 
     }
 
