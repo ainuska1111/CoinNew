@@ -1,7 +1,16 @@
 package com.ainuska1111.newcoins
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.ainuska1111.newcoins.adapter.CoinAdapter
+import com.ainuska1111.newcoins.data.network.model.Status
+import com.ainuska1111.newcoins.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
