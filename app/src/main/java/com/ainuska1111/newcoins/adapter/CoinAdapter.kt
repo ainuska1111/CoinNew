@@ -11,7 +11,7 @@ import com.ainuska1111.newcoins.data.network.model.CoinItem
 import com.ainuska1111.newcoins.ui.CoinFragment
 
 
-class CoinAdapter(val data: List<CoinItem>, coinFragment: CoinFragment, fragmentItem: Int,
+class CoinAdapter(val data: List<CoinItem>, coinFragment: CoinFragment,
 ): RecyclerView.Adapter<CoinAdapter.ViewHolder>(){
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){

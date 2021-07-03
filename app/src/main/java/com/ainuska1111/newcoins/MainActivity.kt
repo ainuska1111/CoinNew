@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ainuska1111.newcoins.adapter.CoinAdapter
 import com.ainuska1111.newcoins.data.network.model.Status
 import com.ainuska1111.newcoins.databinding.ActivityMainBinding
@@ -26,11 +28,18 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+        initView()
         initObservers()
         initClickListeners()
 
     }
-        private fun initObservers() {
+
+    private fun initView() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+
+    }
+
+    private fun initObservers() {
         viewModel?.coinLiveData?.observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -40,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                     binding.progress.isVisible = false
                     val data = it.data
                     if (data != null) {
-                        binding.recyclerView.adapter = CoinAdapter(data.coins, this, R.layout.fragment_item)
+                        binding.recyclerView.adapter = CoinAdapter(data.coins, this, R.layout.item_coins)
                     }
                 }
                 Status.ERROR -> {
