@@ -8,12 +8,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ainuska1111.newcoins.adapter.CoinAdapter
 import com.ainuska1111.newcoins.data.network.model.Status
 import com.ainuska1111.newcoins.databinding.ActivityMainBinding
-import com.ainuska1111.newcoins.ui.CoinFragment
-import com.ainuska1111.newcoins.util.Extras
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         initView()
         initObservers()
         initClickListeners()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel?.loadCoin("USD")
     }
 
     private fun initView() {
@@ -47,14 +47,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 Status.SUCCESS -> {
                     binding.progress.isVisible = false
-                    val data = it.data
-                    if (data != null) {
-                        binding.recyclerView.adapter = CoinAdapter(data.coins, this, R.layout.item_coins)
-                    }
+                    displayData(it.data)
                 }
                 Status.ERROR -> {
                     binding.progress.isVisible = false
-                    Toast.makeText( this, it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -63,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-        private fun initClickListeners() {
+    private fun initClickListeners() {
         val intent = Intent(context, CoinFragment::class.java)
         binding.recyclerView.setOnClickListener {
             intent.putExtra(Extras.HOME_ALL, Type.COINS.name)
@@ -71,5 +68,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-}
+    private fun displayData(response: HomeResponse?) {
+        binding.recyclerView.adapter = CoinAdapter(response?.coin
+                ?: listOf(), this, R.layout.item_coins)
+
+
+        if (response?.coin.isNullOrEmpty()) {
+            binding.recyclerView.isVisible = false
+        }
+
+    }
 
