@@ -11,7 +11,7 @@ import com.ainuska1111.newcoins.adapter.CoinAdapter
 import com.ainuska1111.newcoins.databinding.FragmentBinding
 import com.ainuska1111.newcoins.util.Extras
 
-class CoinFragment : Fragment(R.layout.fragment) {
+class q1CoinFragment : Fragment(R.layout.fragment) {
     private var _binding: FragmentBinding? = null
     private val binding get() = _binding!!
 
